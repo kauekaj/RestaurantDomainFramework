@@ -10,6 +10,7 @@
 		96FB14BF29F1F63D00E2CAD7 /* RestaurantDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FB14B629F1F63D00E2CAD7 /* RestaurantDomain.framework */; };
 		96FB14C429F1F63D00E2CAD7 /* RestaurantDomainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FB14C329F1F63D00E2CAD7 /* RestaurantDomainTests.swift */; };
 		96FB14C529F1F63D00E2CAD7 /* RestaurantDomain.h in Headers */ = {isa = PBXBuildFile; fileRef = 96FB14B929F1F63D00E2CAD7 /* RestaurantDomain.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		96FB14CF29F1F94200E2CAD7 /* RemoteRestaurantLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FB14CE29F1F94200E2CAD7 /* RemoteRestaurantLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +28,7 @@
 		96FB14B929F1F63D00E2CAD7 /* RestaurantDomain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RestaurantDomain.h; sourceTree = "<group>"; };
 		96FB14BE29F1F63D00E2CAD7 /* RestaurantDomainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RestaurantDomainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		96FB14C329F1F63D00E2CAD7 /* RestaurantDomainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDomainTests.swift; sourceTree = "<group>"; };
+		96FB14CE29F1F94200E2CAD7 /* RemoteRestaurantLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteRestaurantLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				96FB14B929F1F63D00E2CAD7 /* RestaurantDomain.h */,
+				96FB14CE29F1F94200E2CAD7 /* RemoteRestaurantLoader.swift */,
 			);
 			path = RestaurantDomain;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 				TargetAttributes = {
 					96FB14B529F1F63D00E2CAD7 = {
 						CreatedOnToolsVersion = 14.2;
+						LastSwiftMigration = 1420;
 					};
 					96FB14BD29F1F63D00E2CAD7 = {
 						CreatedOnToolsVersion = 14.2;
@@ -191,6 +195,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96FB14CF29F1F94200E2CAD7 /* RemoteRestaurantLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +340,7 @@
 		96FB14C929F1F63D00E2CAD7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -351,12 +357,13 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kauekajtech.RestaurantDomain;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -364,6 +371,7 @@
 		96FB14CA29F1F63D00E2CAD7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -380,7 +388,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kauekajtech.RestaurantDomain;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -393,6 +401,7 @@
 		96FB14CC29F1F63D00E2CAD7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = N7W6HJZX49;
@@ -408,6 +417,7 @@
 		96FB14CD29F1F63D00E2CAD7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = N7W6HJZX49;
