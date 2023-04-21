@@ -17,6 +17,7 @@ final class RemoteRestaurantLoader {
     
     let url: URL
     let networkClient: NetworkClient
+    
     init(url: URL, networkClient: NetworkClient) {
         self.url = url
         self.networkClient = networkClient
