@@ -35,28 +35,49 @@ final class RemoteRestaurantLoaderTests: XCTestCase {
         let anyURL = try XCTUnwrap(URL(string: "https://comitando.com.br"))
         let client = NetworkClientSpy()
         let sut = RemoteRestaurantLoader(url: anyURL, networkClient: client)
-        
+        client.stateHandler = .error(NSError(domain: "any error", code: -1))
+
         let exp = expectation(description: "Waiting for return from clousure")
-        var returnedError: Error?
+        var returnedResult: RemoteRestaurantLoader.Error?
         
-        sut.load() { error in
-            returnedError = error
+        sut.load() { result in
+            returnedResult = result
             exp.fulfill()
         }
         
         wait(for: [exp], timeout: 1.0)
         
-        XCTAssertNotNil(returnedError)
+        XCTAssertEqual(returnedResult, .connectivity)
+    }
+    
+    func test_load_and_returned_error_for_invaliddata() throws {
+        let anyURL = try XCTUnwrap(URL(string: "https://comitando.com.br"))
+        let client = NetworkClientSpy()
+        let sut = RemoteRestaurantLoader(url: anyURL, networkClient: client)
+        client.stateHandler = .success
+        
+        let exp = expectation(description: "Waiting for return from clousure")
+        var returnedResult: RemoteRestaurantLoader.Error?
+        
+        sut.load() { result in
+            returnedResult = result
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1.0)
+        
+        XCTAssertEqual(returnedResult, .invalidData)
     }
 }
 
 final class NetworkClientSpy: NetworkClient {
     
     private(set) var urlRequests: [URL] = []
+    var stateHandler: NetworkState?
     
-    func request(from url: URL, completion: @escaping (Error) -> Void) {
+    func request(from url: URL, completion: @escaping (NetworkState) -> Void) {
         urlRequests.append(url)
-        completion(anyError())
+        completion( stateHandler ?? .error(anyError()))
     }
     
     private func anyError() -> Error {
