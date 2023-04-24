@@ -35,7 +35,6 @@ final class RemoteRestaurantLoaderTests: XCTestCase {
         let anyURL = try XCTUnwrap(URL(string: "https://comitando.com.br"))
         let client = NetworkClientSpy()
         let sut = RemoteRestaurantLoader(url: anyURL, networkClient: client)
-        client.stateHandler = .error(NSError(domain: "any error", code: -1))
 
         let exp = expectation(description: "Waiting for return from clousure")
         var returnedResult: RemoteRestaurantLoader.Error?
@@ -45,6 +44,8 @@ final class RemoteRestaurantLoaderTests: XCTestCase {
             exp.fulfill()
         }
         
+        client.completionWithError()
+
         wait(for: [exp], timeout: 1.0)
         
         XCTAssertEqual(returnedResult, .connectivity)
@@ -54,7 +55,6 @@ final class RemoteRestaurantLoaderTests: XCTestCase {
         let anyURL = try XCTUnwrap(URL(string: "https://comitando.com.br"))
         let client = NetworkClientSpy()
         let sut = RemoteRestaurantLoader(url: anyURL, networkClient: client)
-        client.stateHandler = .success
         
         let exp = expectation(description: "Waiting for return from clousure")
         var returnedResult: RemoteRestaurantLoader.Error?
@@ -63,6 +63,8 @@ final class RemoteRestaurantLoaderTests: XCTestCase {
             returnedResult = result
             exp.fulfill()
         }
+        
+        client.completionWithSuccess()
         
         wait(for: [exp], timeout: 1.0)
         
@@ -73,11 +75,19 @@ final class RemoteRestaurantLoaderTests: XCTestCase {
 final class NetworkClientSpy: NetworkClient {
     
     private(set) var urlRequests: [URL] = []
-    var stateHandler: NetworkState?
+    private var completionHandler: ((NetworkState) -> Void)?
     
     func request(from url: URL, completion: @escaping (NetworkState) -> Void) {
         urlRequests.append(url)
-        completion( stateHandler ?? .error(anyError()))
+        completionHandler = completion
+    }
+    
+    func completionWithError() {
+        completionHandler?(.error(anyError()))
+    }
+    
+    func completionWithSuccess() {
+        completionHandler?(.success)
     }
     
     private func anyError() -> Error {
